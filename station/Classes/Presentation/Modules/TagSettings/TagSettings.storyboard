@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YYp-du-G0Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YYp-du-G0Q">
     <device id="retina4_0" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -12,12 +12,12 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Tag Settings-->
         <scene sceneID="zZa-6b-ivF">
             <objects>
                 <tableViewController storyboardIdentifier="TagSettingsTableViewController" id="JXe-xp-HbB" customClass="TagSettingsTableViewController" customModule="station" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ece-Kf-Sc4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="2800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="3000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="ZpM-rL-1lz">
@@ -154,7 +154,7 @@ IMAGE</string>
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="oC8-Vk-na9">
-                            <rect key="frame" x="0.0" y="2665.5" width="414" height="100"/>
+                            <rect key="frame" x="0.0" y="2809.5" width="414" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfl-wc-2o6">
@@ -1332,6 +1332,58 @@ IMAGE</string>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="FIRMWARE" id="fFd-fV-4Ur">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="voC-fD-4yY">
+                                        <rect key="frame" x="0.0" y="2703.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="voC-fD-4yY" id="mJd-VY-WC7">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Firmware Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmS-V4-qUe">
+                                                    <rect key="frame" x="20" y="11.5" width="132" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.12.29" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCG-WK-178">
+                                                    <rect key="frame" x="342" y="11.5" width="56" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="iCG-WK-178" secondAttribute="trailing" constant="16" id="HqH-Jn-Lgn"/>
+                                                <constraint firstItem="iCG-WK-178" firstAttribute="centerY" secondItem="mJd-VY-WC7" secondAttribute="centerY" id="Ww6-BS-0xQ"/>
+                                                <constraint firstItem="jmS-V4-qUe" firstAttribute="leading" secondItem="mJd-VY-WC7" secondAttribute="leading" constant="20" id="bcP-3h-2W9"/>
+                                                <constraint firstItem="jmS-V4-qUe" firstAttribute="centerY" secondItem="mJd-VY-WC7" secondAttribute="centerY" id="cGh-ey-hPq"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="HTa-w3-L4C">
+                                        <rect key="frame" x="0.0" y="2747.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HTa-w3-L4C" id="dGY-rD-wsA">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade Firmware" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKI-1e-dgv">
+                                                    <rect key="frame" x="20" y="11.5" width="141" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="HKI-1e-dgv" firstAttribute="centerY" secondItem="dGY-rD-wsA" secondAttribute="centerY" id="1qp-Dl-xFM"/>
+                                                <constraint firstItem="HKI-1e-dgv" firstAttribute="leading" secondItem="dGY-rD-wsA" secondAttribute="leading" constant="20" id="eAr-ZZ-cXn"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="JXe-xp-HbB" id="ACm-2h-12K"/>
@@ -1345,7 +1397,7 @@ IMAGE</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <size key="freeformSize" width="414" height="2800"/>
+                    <size key="freeformSize" width="414" height="3000"/>
                     <connections>
                         <outlet property="absoluteHumidityAlertControlsCell" destination="MLw-Nk-xKC" id="cVp-Q9-eMz"/>
                         <outlet property="absoluteHumidityAlertHeaderCell" destination="k9k-ZH-935" id="eh8-I3-Au6"/>
@@ -1368,6 +1420,8 @@ IMAGE</string>
                         <outlet property="dataSourceValueLabel" destination="hD6-Gs-hVm" id="5vy-d8-KZu"/>
                         <outlet property="dewPointAlertControlsCell" destination="CRU-qm-bmT" id="Z4k-yZ-tie"/>
                         <outlet property="dewPointAlertHeaderCell" destination="klC-cX-1iV" id="HcQ-S5-fqT"/>
+                        <outlet property="firmwareVersionLabel" destination="iCG-WK-178" id="meo-NY-8pA"/>
+                        <outlet property="firmwareVersionTitleLabel" destination="jmS-V4-qUe" id="o3B-ZL-g2e"/>
                         <outlet property="humidityLabel" destination="h1w-an-ceI" id="Kcn-AW-TMy"/>
                         <outlet property="humidityLabelTrailing" destination="af2-sb-o1z" id="jl6-uI-e1R"/>
                         <outlet property="humidityTitleLabel" destination="l91-kJ-VAO" id="m6y-LI-f6w"/>
@@ -1401,6 +1455,8 @@ IMAGE</string>
                         <outlet property="txPowerTitleLabel" destination="9z1-8W-BSJ" id="2UL-jA-tVG"/>
                         <outlet property="txPowerValueLabel" destination="fKD-IO-Ovr" id="2gL-vR-F92"/>
                         <outlet property="txPowerValueLabelTrailing" destination="mlt-cl-6Rz" id="wGy-rQ-ZQv"/>
+                        <outlet property="upgradeFirmwareCell" destination="HTa-w3-L4C" id="F1O-3p-FhY"/>
+                        <outlet property="upgradeFirmwareTitleLabel" destination="HKI-1e-dgv" id="QFP-yC-ub2"/>
                         <outlet property="uuidCell" destination="gsA-fe-X4K" id="ejM-Gn-9Ht"/>
                         <outlet property="uuidTitleLabel" destination="CsF-ma-M4T" id="EFC-GP-EmK"/>
                         <outlet property="uuidValueLabel" destination="LK1-u4-1tB" id="IPY-v8-jxD"/>

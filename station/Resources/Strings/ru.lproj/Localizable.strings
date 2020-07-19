@@ -257,6 +257,9 @@
 "TagSettings.Label.moreInfo.text" = "ДОПОЛНИТЕЛЬНО";
 "TagSettings.SectionHeader.Name.title" = "ИМЯ";
 "TagSettings.SectionHeader.Calibration.title" = "КАЛИБРОВКА";
+"TagSettings.SectionHeader.Firmware.title" = "ПРОШИВКА";
+"TagSettings.FirmwareVersionTitleLabel.text" = "Версия Прошивки";
+"TagSettings.UpgradeFirmwareTitleLabel.text" = "Обновить Прошивку";
 "TagSettings.temperatureAlertTitleLabel.text" = "Температура";
 "TagSettings.Alerts.Temperature.description" = "Уведомление если меньше %.0f или больше %.0f";
 "TagSettings.Alerts.Off" = "Отключено";

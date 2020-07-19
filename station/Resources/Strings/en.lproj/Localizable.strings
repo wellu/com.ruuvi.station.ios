@@ -258,6 +258,9 @@
 "TagSettings.Label.moreInfo.text" = "MORE INFO";
 "TagSettings.SectionHeader.Name.title" = "NAME";
 "TagSettings.SectionHeader.Calibration.title" = "CALIBRATION";
+"TagSettings.SectionHeader.Firmware.title" = "FIRMWARE";
+"TagSettings.FirmwareVersionTitleLabel.text" = "Firmware Version";
+"TagSettings.UpgradeFirmwareTitleLabel.text" = "Upgrade Firmware";
 "TagSettings.temperatureAlertTitleLabel.text" = "Temperature";
 "TagSettings.Alerts.Temperature.description" = "Alert when less than %.0f or more than %.0f";
 "TagSettings.Alerts.Off" = "Off";

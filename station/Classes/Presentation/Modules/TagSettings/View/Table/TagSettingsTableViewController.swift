@@ -9,6 +9,7 @@ enum TagSettingsTableSection: Int {
     case alerts = 3
     case calibration = 4
     case moreInfo = 5
+    case firmware = 6
 
     static func showConnection(for viewModel: TagSettingsViewModel?) -> Bool {
         return viewModel?.isConnectable.value ?? false
@@ -92,6 +93,11 @@ class TagSettingsTableViewController: UITableViewController {
     @IBOutlet weak var msnTitleLabel: UILabel!
     @IBOutlet weak var removeThisRuuviTagButton: UIButton!
 
+    @IBOutlet weak var firmwareVersionTitleLabel: UILabel!
+    @IBOutlet weak var firmwareVersionLabel: UILabel!
+    @IBOutlet weak var upgradeFirmwareTitleLabel: UILabel!
+    @IBOutlet weak var upgradeFirmwareCell: UITableViewCell!
+
     var viewModel: TagSettingsViewModel? {
         didSet {
             bindViewModel()
@@ -151,6 +157,9 @@ extension TagSettingsTableViewController: TagSettingsViewInput {
         pressureAlertControlsCell.textField.placeholder = alertPlaceholder
         connectionAlertDescriptionCell.textField.placeholder = alertPlaceholder
         movementAlertDescriptionCell.textField.placeholder = alertPlaceholder
+
+        firmwareVersionTitleLabel.text = "TagSettings.FirmwareVersionTitleLabel.text".localized()
+        upgradeFirmwareTitleLabel.text = "TagSettings.UpgradeFirmwareTitleLabel.text".localized()
 
         tableView.reloadData()
     }
@@ -328,6 +337,8 @@ extension TagSettingsTableViewController {
         case .connection:
             return TagSettingsTableSection.showConnection(for: viewModel)
                 ? "TagSettings.SectionHeader.Connection.title".localized() : nil
+        case .firmware:
+            return "TagSettings.SectionHeader.Firmware.title".localized()
         default:
             return nil
         }
