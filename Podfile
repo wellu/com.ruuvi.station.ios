@@ -14,6 +14,7 @@ def shared_pods
   pod 'GestureInstructions'
   pod 'GRDB.swift'
   pod 'Humidity'
+  pod 'iOSDFULibrary'
   pod 'LightRoute', :git => 'https://github.com/rinat-enikeev/LightRoute.git'
   pod 'Localize-Swift'
   pod 'Nantes'
