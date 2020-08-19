@@ -259,6 +259,7 @@
 "TagSettings.SectionHeader.Calibration.title" = "KALIBROINTI";
 "TagSettings.SectionHeader.Firmware.title" = "FIRMWARE";
 "TagSettings.FirmwareVersionTitleLabel.text" = "Firmware Version";
+"TagSettings.FirmwareVersionLabel.Loading.text" = "Loading...";
 "TagSettings.UpgradeFirmwareTitleLabel.text" = "Upgrade Firmware";
 "TagSettings.temperatureAlertTitleLabel.text" = "Lämpötila";
 "TagSettings.Alerts.Temperature.description" = "Hälytä, mikäli lämpötila alle %.0f tai yli %.0f";

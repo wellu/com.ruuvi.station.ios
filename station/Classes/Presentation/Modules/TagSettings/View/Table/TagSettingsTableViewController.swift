@@ -160,6 +160,7 @@ extension TagSettingsTableViewController: TagSettingsViewInput {
 
         firmwareVersionTitleLabel.text = "TagSettings.FirmwareVersionTitleLabel.text".localized()
         upgradeFirmwareTitleLabel.text = "TagSettings.UpgradeFirmwareTitleLabel.text".localized()
+        firmwareVersionLabel.text = "TagSettings.FirmwareVersionLabel.Loading.text".localized()
 
         tableView.reloadData()
     }
@@ -718,6 +719,14 @@ extension TagSettingsTableViewController {
                     label.text = mac
                 } else {
                     label.text = emptyValueString.localized()
+                }
+            }
+
+            firmwareVersionLabel.bind(viewModel.firmware) { (label, firmware) in
+                if let firmware = firmware {
+                    label.text = firmware
+                } else {
+                    label.text = "TagSettings.FirmwareVersionLabel.Loading.text".localized()
                 }
             }
 

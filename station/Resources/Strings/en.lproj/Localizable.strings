@@ -260,6 +260,7 @@
 "TagSettings.SectionHeader.Calibration.title" = "CALIBRATION";
 "TagSettings.SectionHeader.Firmware.title" = "FIRMWARE";
 "TagSettings.FirmwareVersionTitleLabel.text" = "Firmware Version";
+"TagSettings.FirmwareVersionLabel.Loading.text" = "Loading...";
 "TagSettings.UpgradeFirmwareTitleLabel.text" = "Upgrade Firmware";
 "TagSettings.temperatureAlertTitleLabel.text" = "Temperature";
 "TagSettings.Alerts.Temperature.description" = "Alert when less than %.0f or more than %.0f";

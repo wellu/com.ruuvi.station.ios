@@ -79,6 +79,7 @@ class TagSettingsPresenter: NSObject, TagSettingsModuleInput {
         startObservingConnectionStatus()
         startObservingApplicationState()
         startObservingAlertChanges()
+        loadFirmwareVersion()
     }
 
     func dismiss(completion: (() -> Void)?) {
@@ -799,6 +800,19 @@ extension TagSettingsPresenter {
         let isOn = alertService.isOn(type: type, for: uuid)
         if isOn != observable.value {
             observable.value = isOn
+        }
+    }
+
+    private func loadFirmwareVersion() {
+        if let luid = ruuviTag.luid {
+            BTKit.background.services.gatt.firmwareRevision(for: self, uuid: luid.value) { [weak self] (observer, result) in
+                switch result {
+                case .success(let firmware):
+                    self?.viewModel.firmware.value = firmware
+                case .failure(let error):
+                    self?.errorPresenter.present(error: error)
+                }
+            }
         }
     }
 }
