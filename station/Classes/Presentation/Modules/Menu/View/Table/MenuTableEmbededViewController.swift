@@ -3,6 +3,7 @@ import UIKit
 class MenuTableEmbededViewController: UITableViewController, MenuViewInput {
     var output: MenuViewOutput!
 
+    @IBOutlet weak var upgradeFirmwareCell: UITableViewCell!
     @IBOutlet weak var feedbackCell: UITableViewCell!
     @IBOutlet weak var addRuuviTagCell: UITableViewCell!
     @IBOutlet weak var aboutCell: UITableViewCell!
@@ -50,6 +51,8 @@ extension MenuTableEmbededViewController {
                 output.viewDidSelectSettings()
             case feedbackCell:
                 output.viewDidSelectFeedback()
+            case upgradeFirmwareCell:
+                output.viewDidSelectUpgradeFirmware()
             default:
                 break
             }

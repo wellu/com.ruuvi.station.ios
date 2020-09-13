@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4zU-xk-0Lq">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16097.3"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Ruuvi Boot Table View Controller-->
+        <scene sceneID="d6H-De-Htt">
+            <objects>
+                <tableViewController id="4zU-xk-0Lq" customClass="RuuviBootTableViewController" customModule="station" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3id-k9-X1P">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RuuviBootDeviceTableViewCellReuseIdentifier" id="I6T-tI-N83" customClass="RuuviBootDeviceTableViewCell" customModule="station" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="I6T-tI-N83" id="lie-PR-Q4o">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UUID or MAC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rft-9i-L3u">
+                                            <rect key="frame" x="20" y="11.5" width="102" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o5V-B8-HMa">
+                                            <rect key="frame" x="368" y="9" width="26" height="26"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="26" id="33H-MD-lbY"/>
+                                                <constraint firstAttribute="width" constant="26" id="9Jk-dC-GBv"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="-70 dBm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msS-um-wRj">
+                                            <rect key="frame" x="158" y="13" width="202" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bluetooth-connected" translatesAutoresizingMaskIntoConstraints="NO" id="Lvy-TX-Afg">
+                                            <rect key="frame" x="130" y="12" width="20" height="20"/>
+                                            <color key="tintColor" red="0.08235294118" green="0.55294117649999996" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="NS1-7C-EFA"/>
+                                                <constraint firstAttribute="width" constant="20" id="vC2-ja-UQp"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Lvy-TX-Afg" firstAttribute="leading" secondItem="rft-9i-L3u" secondAttribute="trailing" constant="8" id="9l8-8d-hv9"/>
+                                        <constraint firstItem="rft-9i-L3u" firstAttribute="leading" secondItem="lie-PR-Q4o" secondAttribute="leading" constant="20" id="AjX-EB-Y1b"/>
+                                        <constraint firstItem="msS-um-wRj" firstAttribute="leading" secondItem="Lvy-TX-Afg" secondAttribute="trailing" constant="8" id="ECl-1O-xya"/>
+                                        <constraint firstItem="o5V-B8-HMa" firstAttribute="centerY" secondItem="lie-PR-Q4o" secondAttribute="centerY" id="GDI-5v-8op"/>
+                                        <constraint firstItem="msS-um-wRj" firstAttribute="centerY" secondItem="o5V-B8-HMa" secondAttribute="centerY" id="KCQ-ZC-8vI"/>
+                                        <constraint firstAttribute="trailing" secondItem="o5V-B8-HMa" secondAttribute="trailing" constant="20" id="NE5-a6-jUt"/>
+                                        <constraint firstItem="o5V-B8-HMa" firstAttribute="leading" secondItem="msS-um-wRj" secondAttribute="trailing" constant="8" id="XCq-hG-JUk"/>
+                                        <constraint firstItem="Lvy-TX-Afg" firstAttribute="centerY" secondItem="rft-9i-L3u" secondAttribute="centerY" id="cn2-u1-Yld"/>
+                                        <constraint firstItem="rft-9i-L3u" firstAttribute="centerY" secondItem="lie-PR-Q4o" secondAttribute="centerY" id="wra-od-l9A"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="identifierLabel" destination="rft-9i-L3u" id="qh2-fl-58z"/>
+                                    <outlet property="isConnectableImageView" destination="Lvy-TX-Afg" id="J5x-r1-uZL"/>
+                                    <outlet property="rssiImageView" destination="o5V-B8-HMa" id="oCs-4d-uDP"/>
+                                    <outlet property="rssiLabel" destination="msS-um-wRj" id="W9D-w6-vDp"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="4zU-xk-0Lq" id="IFt-bH-eDG"/>
+                            <outlet property="delegate" destination="4zU-xk-0Lq" id="Fsb-JU-ewn"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="76b-pe-fcA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <customObject id="imK-GQ-r0h" customClass="RuuviBootInitializer" customModule="station" customModuleProvider="target">
+                    <connections>
+                        <outlet property="viewController" destination="4zU-xk-0Lq" id="5wb-5M-vZN"/>
+                    </connections>
+                </customObject>
+            </objects>
+            <point key="canvasLocation" x="148" y="153"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bluetooth-connected" width="24" height="24"/>
+    </resources>
+</document>

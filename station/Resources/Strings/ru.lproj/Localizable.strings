@@ -260,6 +260,8 @@
 "TagSettings.SectionHeader.Firmware.title" = "ПРОШИВКА";
 "TagSettings.FirmwareVersionTitleLabel.text" = "Версия Прошивки";
 "TagSettings.FirmwareVersionLabel.Loading.text" = "Загружается...";
+"TagSettings.upgradeFirmwareDialog.title" = "Are you sure?";
+"TagSettings.upgradeFirmwareDialog.message" = "Do you want to upgrade firmware to v3.28.13?";
 "TagSettings.UpgradeFirmwareTitleLabel.text" = "Обновить Прошивку";
 "TagSettings.temperatureAlertTitleLabel.text" = "Температура";
 "TagSettings.Alerts.Temperature.description" = "Уведомление если меньше %.0f или больше %.0f";

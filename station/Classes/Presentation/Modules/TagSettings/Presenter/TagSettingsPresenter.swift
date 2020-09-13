@@ -3,6 +3,7 @@ import Foundation
 import BTKit
 import UIKit
 import Future
+import iOSDFULibrary
 
 class TagSettingsPresenter: NSObject, TagSettingsModuleInput {
     weak var view: TagSettingsViewInput!
@@ -87,6 +88,24 @@ class TagSettingsPresenter: NSObject, TagSettingsModuleInput {
     }
 }
 
+extension TagSettingsPresenter: DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate {
+    func dfuStateDidChange(to state: DFUState) {
+        print("State: \(state.rawValue)")
+    }
+
+    func dfuError(_ error: DFUError, didOccurWithMessage message: String) {
+        print("Error: \(error.rawValue) message: " + message)
+    }
+
+    func dfuProgressDidChange(for part: Int, outOf totalParts: Int, to progress: Int, currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
+        print("Progress: \(part) out of \(totalParts); progress: \(progress): ")
+    }
+
+    func logWith(_ level: LogLevel, message: String) {
+        print("Log: " + message)
+    }
+}
+
 // MARK: - TagSettingsViewOutput
 extension TagSettingsPresenter: TagSettingsViewOutput {
 
@@ -96,6 +115,22 @@ extension TagSettingsPresenter: TagSettingsViewOutput {
 
     func viewDidAskToDismiss() {
         router.dismiss()
+    }
+
+    func viewDidAskToUpgradeFirmware() {
+        view.showUpgradeFirmwareConfirmationDialog()
+    }
+
+    func viewDidConfirmFirmwareUpgrade() {
+        if let url = Bundle.main.url(forResource: "ruuvitag_b_armgcc_ruuvifw_default_v3.28.13_sdk12.3_to_15.3_dfu", withExtension: "zip"),
+            let selectedFirmware = DFUFirmware(urlToZipFile: url), let luid = ruuviTag.luid, let peripheral = BTKit.background.connectedPeripheral(uuid: luid.value) {
+            let initiator = DFUServiceInitiator().with(firmware: selectedFirmware)
+            initiator.logger = self // - to get log info
+            initiator.delegate = self // - to be informed about current state and errors
+            initiator.progressDelegate = self // - to show progress bar
+//            initiator.peripheralSelector = ... // the default selector is used
+            let controller = initiator.start(target: peripheral)
+        }
     }
 
     func viewDidAskToRandomizeBackground() {
@@ -805,7 +840,8 @@ extension TagSettingsPresenter {
 
     private func loadFirmwareVersion() {
         if let luid = ruuviTag.luid {
-            BTKit.background.services.gatt.firmwareRevision(for: self, uuid: luid.value) { [weak self] (observer, result) in
+            BTKit.background.services.gatt.firmwareRevision(for: self, uuid: luid.value) {
+                [weak self] (observer, result) in
                 switch result {
                 case .success(let firmware):
                     self?.viewModel.firmware.value = firmware

@@ -247,6 +247,19 @@ extension TagSettingsTableViewController: TagSettingsViewInput {
         controller.addAction(UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: nil))
         present(controller, animated: true)
     }
+
+    func showUpgradeFirmwareConfirmationDialog() {
+        let title = "TagSettings.upgradeFirmwareDialog.title".localized()
+        let message = "TagSettings.upgradeFirmwareDialog.message".localized()
+        let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        controller.addAction(UIAlertAction(title: "Confirm".localized(),
+                                           style: .destructive,
+                                           handler: { [weak self] _ in
+            self?.output.viewDidConfirmFirmwareUpgrade()
+        }))
+        controller.addAction(UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: nil))
+        present(controller, animated: true)
+    }
 }
 
 // MARK: - View lifecycle
@@ -322,6 +335,8 @@ extension TagSettingsTableViewController {
                 output.viewDidTapOnMovementCounter()
             case msnCell:
                 output.viewDidTapOnMeasurementSequenceNumber()
+            case upgradeFirmwareCell:
+                output.viewDidAskToUpgradeFirmware()
             default:
                 break
             }

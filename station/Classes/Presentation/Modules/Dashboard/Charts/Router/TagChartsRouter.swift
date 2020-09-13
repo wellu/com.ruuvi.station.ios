@@ -70,4 +70,11 @@ class TagChartsRouter: TagChartsRouterInput {
                 module.configure(webTag: webTag)
             })
     }
+
+    func openUpgradeFirmware() {
+        let factory = StoryboardFactory(storyboardName: "RuuviBoot")
+        try! transitionHandler
+            .forStoryboard(factory: factory, to: RuuviBootModuleInput.self)
+            .perform()
+    }
 }

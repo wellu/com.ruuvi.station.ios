@@ -260,6 +260,8 @@
 "TagSettings.SectionHeader.Firmware.title" = "FIRMWARE";
 "TagSettings.FirmwareVersionTitleLabel.text" = "Firmware Version";
 "TagSettings.FirmwareVersionLabel.Loading.text" = "Loading...";
+"TagSettings.upgradeFirmwareDialog.title" = "Are you sure?";
+"TagSettings.upgradeFirmwareDialog.message" = "Do you want to upgrade firmware to v3.28.13?";
 "TagSettings.UpgradeFirmwareTitleLabel.text" = "Upgrade Firmware";
 "TagSettings.temperatureAlertTitleLabel.text" = "Temperatur";
 "TagSettings.Alerts.Temperature.description" = "Alarmera när mindre än %.0f eller mer än %.0f";

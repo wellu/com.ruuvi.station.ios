@@ -9,4 +9,5 @@ protocol CardsRouterInput {
     func openTagSettings(ruuviTag: RuuviTagSensor, humidity: Double?, output: TagSettingsModuleOutput)
     func openWebTagSettings(webTag: WebTagRealm)
     func openTagCharts()
+    func openUpgradeFirmware()
 }

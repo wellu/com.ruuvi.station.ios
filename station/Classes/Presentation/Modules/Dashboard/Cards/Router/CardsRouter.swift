@@ -83,6 +83,13 @@ class CardsRouter: NSObject, CardsRouterInput {
         UIApplication.shared.open(URL(string: "https://ruuvi.com")!, options: [:], completionHandler: nil)
     }
 
+    func openUpgradeFirmware() {
+        let factory = StoryboardFactory(storyboardName: "RuuviBoot")
+        try! transitionHandler
+            .forStoryboard(factory: factory, to: RuuviBootModuleInput.self)
+            .perform()
+    }
+
 }
 
 extension CardsRouter: UIAdaptivePresentationControllerDelegate {

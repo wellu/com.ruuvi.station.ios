@@ -201,6 +201,11 @@ extension CardsPresenter: DiscoverModuleOutput {
 
 // MARK: - MenuModuleOutput
 extension CardsPresenter: MenuModuleOutput {
+    func menu(module: MenuModuleInput, didSelectUpgradeFirmware sender: Any?) {
+        module.dismiss()
+        router.openUpgradeFirmware()
+    }
+
     func menu(module: MenuModuleInput, didSelectAddRuuviTag sender: Any?) {
         module.dismiss()
         router.openDiscover(output: self)

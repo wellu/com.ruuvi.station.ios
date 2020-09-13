@@ -39,4 +39,8 @@ extension MenuPresenter: MenuViewOutput {
     func viewDidSelectFeedback() {
         output?.menu(module: self, didSelectFeedback: nil)
     }
+
+    func viewDidSelectUpgradeFirmware() {
+        output?.menu(module: self, didSelectUpgradeFirmware: nil)
+    }
 }

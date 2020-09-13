@@ -9,6 +9,7 @@ protocol TagChartsRouterInput {
     func openMenu(output: MenuModuleOutput)
     func openTagSettings(ruuviTag: RuuviTagSensor, humidity: Double?, output: TagSettingsModuleOutput)
     func openWebTagSettings(webTag: WebTagRealm)
+    func openUpgradeFirmware()
 }
 extension TagChartsRouterInput {
     func dismiss() {

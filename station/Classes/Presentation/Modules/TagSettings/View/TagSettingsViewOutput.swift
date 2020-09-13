@@ -20,4 +20,6 @@ protocol TagSettingsViewOutput {
     func viewDidAskToFixHumidityAdjustment()
     func viewDidTapOnAlertsDisabledView()
     func viewDidAskToConnectFromAlertsDisabledDialog()
+    func viewDidAskToUpgradeFirmware()
+    func viewDidConfirmFirmwareUpgrade()
 }

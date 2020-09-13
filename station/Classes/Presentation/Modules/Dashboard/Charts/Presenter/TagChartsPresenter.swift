@@ -214,6 +214,11 @@ extension TagChartsPresenter: DiscoverModuleOutput {
 
 // MARK: - MenuModuleOutput
 extension TagChartsPresenter: MenuModuleOutput {
+    func menu(module: MenuModuleInput, didSelectUpgradeFirmware sender: Any?) {
+        module.dismiss()
+        router.openUpgradeFirmware()
+    }
+
     func menu(module: MenuModuleInput, didSelectAddRuuviTag sender: Any?) {
         module.dismiss()
         router.openDiscover(output: self)
