@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4zU-xk-0Lq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iO1-wc-lgX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16097.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Ruuvi Boot Table View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="is3-Rt-XOh">
+            <objects>
+                <navigationController id="iO1-wc-lgX" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3h4-c3-yOR">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="4zU-xk-0Lq" kind="relationship" relationship="rootViewController" id="6As-Jo-BMT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Lk-2l-oyB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-645" y="153"/>
+        </scene>
+        <!--Upgrade Firmware-->
         <scene sceneID="d6H-De-Htt">
             <objects>
                 <tableViewController id="4zU-xk-0Lq" customClass="RuuviBootTableViewController" customModule="station" customModuleProvider="target" sceneMemberID="viewController">
@@ -76,6 +92,7 @@
                             <outlet property="delegate" destination="4zU-xk-0Lq" id="Fsb-JU-ewn"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Upgrade Firmware" id="0VN-Ea-H5S"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="76b-pe-fcA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <customObject id="imK-GQ-r0h" customClass="RuuviBootInitializer" customModule="station" customModuleProvider="target">
