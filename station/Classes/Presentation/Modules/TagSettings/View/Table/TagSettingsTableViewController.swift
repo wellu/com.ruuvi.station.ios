@@ -19,6 +19,10 @@ enum TagSettingsTableSection: Int {
         return viewModel?.isConnectable.value ?? false
     }
 
+    static func showFirmware(for viewModel: TagSettingsViewModel?) -> Bool {
+        return viewModel?.isConnectable.value ?? false
+    }
+
     static func section(for sectionIndex: Int) -> TagSettingsTableSection {
         return TagSettingsTableSection(rawValue: sectionIndex) ?? .name
     }
@@ -347,7 +351,8 @@ extension TagSettingsTableViewController {
             return TagSettingsTableSection.showConnection(for: viewModel)
                 ? "TagSettings.SectionHeader.Connection.title".localized() : nil
         case .firmware:
-            return "TagSettings.SectionHeader.Firmware.title".localized()
+            return TagSettingsTableSection.showFirmware(for: viewModel)
+                ? "TagSettings.SectionHeader.Firmware.title".localized() : nil
         default:
             return nil
         }
@@ -398,6 +403,8 @@ extension TagSettingsTableViewController {
             return 44
         case .alerts:
             return TagSettingsTableSection.showAlerts(for: viewModel) ? 44 : .leastNormalMagnitude
+        case .firmware:
+            return TagSettingsTableSection.showFirmware(for: viewModel) ? 44 : .leastNormalMagnitude
         case .connection:
             return TagSettingsTableSection.showConnection(for: viewModel)
                 ? super.tableView(tableView, heightForHeaderInSection: section) : .leastNormalMagnitude
@@ -412,6 +419,9 @@ extension TagSettingsTableViewController {
         case .alerts:
             return TagSettingsTableSection.showAlerts(for: viewModel)
                 ? super.tableView(tableView, heightForHeaderInSection: section) : .leastNormalMagnitude
+        case .firmware:
+            return TagSettingsTableSection.showFirmware(for: viewModel)
+                ? super.tableView(tableView, heightForHeaderInSection: section) : .leastNormalMagnitude
         case .connection:
             return TagSettingsTableSection.showConnection(for: viewModel)
                 ? super.tableView(tableView, heightForHeaderInSection: section) : .leastNormalMagnitude
@@ -425,6 +435,9 @@ extension TagSettingsTableViewController {
         switch s {
         case .alerts:
             return TagSettingsTableSection.showAlerts(for: viewModel)
+                ? super.tableView(tableView, numberOfRowsInSection: section) : 0
+        case .firmware:
+            return TagSettingsTableSection.showFirmware(for: viewModel)
                 ? super.tableView(tableView, numberOfRowsInSection: section) : 0
         case .connection:
             return TagSettingsTableSection.showConnection(for: viewModel)
