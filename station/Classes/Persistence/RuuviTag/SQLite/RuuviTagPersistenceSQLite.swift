@@ -2,6 +2,9 @@ import BTKit
 import Foundation
 import Future
 import GRDB
+#if canImport(FirebaseCrashlytics)
+import FirebaseCrashlytics
+#endif
 
 class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
     typealias Entity = RuuviTagSQLite
@@ -29,6 +32,7 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
             }
             promise.succeed(value: true)
         } catch {
+            reportToCrashlytics(error: error)
             promise.fail(error: .persistence(error))
         }
         return promise.future
@@ -43,6 +47,7 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
             }
             promise.succeed(value: true)
         } catch {
+            reportToCrashlytics(error: error)
             promise.fail(error: .persistence(error))
         }
         return promise.future
@@ -59,6 +64,7 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
             }
             promise.succeed(value: true)
         } catch {
+            reportToCrashlytics(error: error)
             promise.fail(error: .persistence(error))
         }
         return promise.future
@@ -67,14 +73,15 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
     func readAll() -> Future<[AnyRuuviTagSensor], RUError> {
         let promise = Promise<[AnyRuuviTagSensor], RUError>()
         var sqliteEntities = [RuuviTagSensor]()
-        readQueue.async {
+        readQueue.async { [weak self] in
             do {
-                try self.database.dbPool.read { db in
+                try self?.database.dbPool.read { db in
                     let request = Entity.order(Entity.versionColumn)
                     sqliteEntities = try request.fetchAll(db)
                 }
                 promise.succeed(value: sqliteEntities.map({ $0.any }))
             } catch {
+                self?.reportToCrashlytics(error: error)
                 promise.fail(error: .persistence(error))
             }
         }
@@ -83,10 +90,10 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
 
     func readOne(_ ruuviTagId: String) -> Future<AnyRuuviTagSensor, RUError> {
         let promise = Promise<AnyRuuviTagSensor, RUError>()
-        readQueue.async {
+        readQueue.async { [weak self] in
             var entity: Entity?
             do {
-                try self.database.dbPool.read { db in
+                try self?.database.dbPool.read { db in
                     let request = Entity.filter(Entity.idColumn == ruuviTagId)
                     entity = try request.fetchOne(db)
                 }
@@ -96,6 +103,7 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
                     promise.fail(error: .unexpected(.failedToFindRuuviTag))
                 }
             } catch {
+                self?.reportToCrashlytics(error: error)
                 promise.fail(error: .persistence(error))
             }
         }
@@ -104,16 +112,17 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
 
     func readAll(_ ruuviTagId: String) -> Future<[RuuviTagSensorRecord], RUError> {
         let promise = Promise<[RuuviTagSensorRecord], RUError>()
-        readQueue.async {
+        readQueue.async { [weak self] in
             var sqliteEntities = [RuuviTagSensorRecord]()
             do {
-                try self.database.dbPool.read { db in
+                try self?.database.dbPool.read { db in
                     let request = Record.order(Record.dateColumn)
                                         .filter(Record.ruuviTagIdColumn == ruuviTagId)
                     sqliteEntities = try request.fetchAll(db)
                 }
                 promise.succeed(value: sqliteEntities.map({ $0.any }))
             } catch {
+                self?.reportToCrashlytics(error: error)
                 promise.fail(error: .persistence(error))
             }
         }
@@ -122,10 +131,10 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
 
     func readAll(_ ruuviTagId: String, with interval: TimeInterval) -> Future<[RuuviTagSensorRecord], RUError> {
         let promise = Promise<[RuuviTagSensorRecord], RUError>()
-        readQueue.async {
+        readQueue.async { [weak self] in
             var sqliteEntities = [RuuviTagSensorRecord]()
             do {
-                try self.database.dbPool.read { db in
+                try self?.database.dbPool.read { db in
                     let request = """
                     SELECT
                         *
@@ -138,6 +147,7 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
                 }
                 promise.succeed(value: sqliteEntities.map({ $0.any }))
             } catch {
+                self?.reportToCrashlytics(error: error)
                 promise.fail(error: .persistence(error))
             }
         }
@@ -146,10 +156,10 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
 
     func readLast(_ ruuviTagId: String, from: TimeInterval) -> Future<[RuuviTagSensorRecord], RUError> {
         let promise = Promise<[RuuviTagSensorRecord], RUError>()
-        readQueue.async {
+        readQueue.async { [weak self] in
             var sqliteEntities = [RuuviTagSensorRecord]()
             do {
-                try self.database.dbPool.read { db in
+                try self?.database.dbPool.read { db in
                     let request = Record.order(Record.dateColumn)
                         .filter(Record.ruuviTagIdColumn == ruuviTagId
                             && Record.dateColumn > Date(timeIntervalSince1970: from))
@@ -157,6 +167,7 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
                 }
                 promise.succeed(value: sqliteEntities.map({ $0.any }))
             } catch {
+                self?.reportToCrashlytics(error: error)
                 promise.fail(error: .persistence(error))
             }
         }
@@ -164,16 +175,17 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
     }
     func readLast(_ ruuviTag: RuuviTagSensor) -> Future<RuuviTagSensorRecord?, RUError> {
         let promise = Promise<RuuviTagSensorRecord?, RUError>()
-        readQueue.async {
+        readQueue.async { [weak self] in
             do {
                 var sqliteRecord: Record?
-                try self.database.dbPool.read { db in
+                try self?.database.dbPool.read { db in
                     let request = Record.order(Record.dateColumn.desc)
                                         .filter(Record.ruuviTagIdColumn == ruuviTag.id)
                     sqliteRecord = try request.fetchOne(db)
                 }
                 promise.succeed(value: sqliteRecord)
             } catch {
+                self?.reportToCrashlytics(error: error)
                 promise.fail(error: .persistence(error))
             }
         }
@@ -196,6 +208,7 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
             }
             promise.succeed(value: true)
         } catch {
+            reportToCrashlytics(error: error)
             promise.fail(error: .persistence(error))
         }
         return promise.future
@@ -218,6 +231,7 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
             }
             promise.succeed(value: success)
         } catch {
+            reportToCrashlytics(error: error)
             promise.fail(error: .persistence(error))
         }
         return promise.future
@@ -233,6 +247,7 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
             }
             promise.succeed(value: deletedCount > 0)
         } catch {
+            reportToCrashlytics(error: error)
             promise.fail(error: .persistence(error))
         }
         return promise.future
@@ -248,8 +263,18 @@ class RuuviTagPersistenceSQLite: RuuviTagPersistence, DatabaseService {
             }
             promise.succeed(value: deletedCount > 0)
         } catch {
+            reportToCrashlytics(error: error)
             promise.fail(error: .persistence(error))
         }
         return promise.future
+    }
+}
+// MARK: - Private
+extension RuuviTagPersistenceSQLite {
+    func reportToCrashlytics(error: Error, method: String = #function, line: Int = #line) {
+        #if canImport(FirebaseCrashlytics)
+        Crashlytics.crashlytics().log("\(method)(line: \(line)")
+        Crashlytics.crashlytics().record(error: error)
+        #endif
     }
 }

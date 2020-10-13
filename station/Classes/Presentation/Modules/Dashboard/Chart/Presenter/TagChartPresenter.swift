@@ -1,5 +1,6 @@
 import Foundation
 import Charts
+import UIKit
 
 class TagChartPresenter: NSObject {
     var view: TagChartViewInput!
@@ -11,6 +12,12 @@ class TagChartPresenter: NSObject {
     }
     weak var ouptut: TagChartModuleOutput!
     var calibrationService: CalibrationService!
+    var measurementService: MeasurementsService! {
+        didSet {
+            measurementService.add(self)
+        }
+    }
+
     private var humidityOffset: Double = 0.0
     private var luid: LocalIdentifier? {
         didSet {
@@ -44,8 +51,7 @@ extension TagChartPresenter: TagChartModuleInput {
         return view.chartView
     }
 
-    fileprivate func configureViewModel(_ viewModel: TagChartViewModel) {
-        viewModel.isDownsamplingOn.value = settings.chartDownsamplingOn
+    fileprivate func updateUnits(_ viewModel: TagChartViewModel) {
         switch viewModel.type {
         case .temperature:
             viewModel.unit.value = settings.temperatureUnit.unitTemperature
@@ -59,10 +65,15 @@ extension TagChartPresenter: TagChartModuleInput {
                 viewModel.unit.value = Unit(symbol: "g/m³".localized())
             }
         case .pressure:
-            viewModel.unit.value =  Unit(symbol: "hPa".localized())
+            viewModel.unit.value =  measurementService.units.pressureUnit
         default:
             viewModel.unit.value = Unit(symbol: "N/A".localized())
         }
+    }
+
+    fileprivate func configureViewModel(_ viewModel: TagChartViewModel) {
+        viewModel.isDownsamplingOn.value = settings.chartDownsamplingOn
+        updateUnits(viewModel)
         self.viewModel = viewModel
     }
 
@@ -97,7 +108,11 @@ extension TagChartPresenter: TagChartViewOutput {
                            stop: range.max)
     }
 }
-
+extension TagChartPresenter: MeasurementsServiceDelegate {
+    func measurementServiceDidUpdateUnit() {
+        self.updateUnits(viewModel)
+    }
+}
 extension TagChartPresenter {
     private func getHumityCalibration(for luid: LocalIdentifier?) {
         guard let luid = luid else {
@@ -249,35 +264,22 @@ extension TagChartPresenter {
         }
         queue.addOperation(filterOperation)
     }
-//swiftlint:disable:next cyclomatic_complexity
     private func chartEntry(for data: RuuviMeasurement) -> ChartDataEntry? {
         var value: Double?
         switch viewModel.type {
         case .temperature:
-            value = data.temperature?.converted(to: settings.temperatureUnit.unitTemperature).value
+            value = measurementService.double(for: data.temperature)
         case .humidity:
-            switch settings.humidityUnit {
-            case .dew:
-                switch settings.temperatureUnit {
-                case .celsius:
-                    value = data.humidity?.Td
-                case .fahrenheit:
-                    value = data.humidity?.TdF
-                case .kelvin:
-                    value = data.humidity?.TdK
-                }
-            case .gm3:
-                value = data.humidity?.ah
-            case .percent:
-                if let relativeHumidity = data.humidity?.rh {
-                    let sumHumidity = relativeHumidity * 100.0 + humidityOffset
-                    value = min(sumHumidity, 100.0)
-                } else {
-                    value = nil
-                }
-            }
+            value = measurementService.double(for: data.humidity,
+                                              withOffset: humidityOffset,
+                                              temperature: data.temperature,
+                                              isDecimal: false)
         case .pressure:
-            value = data.pressure?.converted(to: .hectopascals).value
+            if let value = measurementService.double(for: data.pressure) {
+                return ChartDataEntry(x: data.date.timeIntervalSince1970, y: value)
+            } else {
+                return nil
+            }
         default:
             fatalError("before need implement chart with current type!")
         }
