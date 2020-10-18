@@ -28,6 +28,10 @@ extension RuuviBootPresenter: RuuviBootViewOutput {
         stopScanning()
         stopReloading()
     }
+
+    func viewDidSelect(device: RuuviBootDeviceViewModel) {
+        print(device)
+    }
 }
 
 extension RuuviBootPresenter {

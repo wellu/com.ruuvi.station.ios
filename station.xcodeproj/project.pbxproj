@@ -4468,9 +4468,9 @@
 		0EEB3FCC25358508008CE97B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0EEB3FCF25358508008CE97B /* Table */,
 				0EEB3FCD25358508008CE97B /* RuuviBootDeviceViewModel.swift */,
 				0EEB3FCE25358508008CE97B /* RuuviBootViewOutput.swift */,
-				0EEB3FCF25358508008CE97B /* Table */,
 				0EEB3FD325358508008CE97B /* RuuviBootViewInput.swift */,
 			);
 			path = View;

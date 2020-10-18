@@ -30,13 +30,21 @@ extension RuuviBootTableViewController {
 }
 
 extension RuuviBootTableViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let device = devices[indexPath.row]
+        output.viewDidSelect(device: device)
+    }
+}
+
+extension RuuviBootTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return devices.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint:disable force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: deviceCellReuseIdentifier, for: indexPath) as! RuuviBootDeviceTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: deviceCellReuseIdentifier, for: indexPath)
+            as! RuuviBootDeviceTableViewCell
         // swiftlint:enable force_cast
         let device = devices[indexPath.row]
         configure(cell: cell, with: device)
