@@ -17,13 +17,8 @@ class AdvancedPresenter: NSObject, AdvancedModuleInput {
             buildChartDownsampling(),
             buildChartIntervalSeconds()
         ])
-        let ruuviNetworkSection = AdvancedSection(title: "Advanced.RuuviNetwork.Section.title".localized(),
-                                                  cells: [
-            buildRuuviNetwork()
-        ])
         viewModel = AdvancedViewModel(sections: [
-            chartsSection,
-            ruuviNetworkSection
+            chartsSection
         ])
     }
 }

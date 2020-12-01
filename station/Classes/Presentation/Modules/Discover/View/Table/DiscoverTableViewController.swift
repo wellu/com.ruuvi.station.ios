@@ -121,8 +121,7 @@ class DiscoverTableViewController: UITableViewController {
         }
     }
     private var networkSectionIsVisible: Bool {
-        return networkFeatureEnabled
-            && (networkKaltiotEnabled || networkWhereOsEnabled)
+        return false
     }
 }
 

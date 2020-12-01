@@ -56,8 +56,20 @@ extension TagChartsInteractor: TagChartsInteractorInput {
             switch change {
             case .initial(let sensors):
                 self?.sensors = sensors
+                if let id = self?.ruuviTagSensor.id,
+                   let sensor = sensors.first(where: {$0.id == id}) {
+                    self?.ruuviTagSensor = sensor
+                    self?.presenter.interactorDidUpdate(sensor: sensor)
+                }
             case .insert(let sensor):
                 self?.sensors.append(sensor)
+            case .update(let sensor):
+                if self?.ruuviTagSensor.id == sensor.id,
+                   let index = self?.sensors.firstIndex(where: {$0.id == sensor.id}) {
+                    self?.ruuviTagSensor = sensor
+                    self?.sensors[index] = sensor
+                    self?.presenter.interactorDidUpdate(sensor: sensor)
+                }
             default:
                 return
             }
@@ -110,16 +122,6 @@ extension TagChartsInteractor: TagChartsInteractorInput {
         var operations = [Future<Void, RUError>]()
         if let luid = ruuviTagSensor.luid {
             operations.append(syncLocalTag(luid: luid.value, progress: progress))
-        }
-        if let macId = ruuviTagSensor.macId {
-            if settings.kaltiotNetworkEnabled && keychainService.hasKaltiotApiKey {
-                operations.append(syncNetworkRecords(for: macId, with: .kaltiot))
-                progress?(.serving)
-            }
-            if settings.whereOSNetworkEnabled {
-                operations.append(syncNetworkRecords(for: macId, with: .whereOS))
-                progress?(.serving)
-            }
         }
         Future.zip(operations).on(success: { [weak self] (_) in
             self?.clearChartsAndRestartObserving()
@@ -247,18 +249,6 @@ extension TagChartsInteractor {
         op.on(success: { _ in
             promise.succeed(value: ())
         }, failure: {error in
-            promise.fail(error: error)
-        })
-        return promise.future
-    }
-
-    private func syncNetworkRecords(for macId: MACIdentifier,
-                                    with provider: RuuviNetworkProvider) -> Future<Void, RUError> {
-        let promise = Promise<Void, RUError>()
-        let op = networkService.loadData(for: macId.value, mac: macId.mac, from: provider)
-        op.on(success: { _ in
-            promise.succeed(value: ())
-        }, failure: { error in
             promise.fail(error: error)
         })
         return promise.future
